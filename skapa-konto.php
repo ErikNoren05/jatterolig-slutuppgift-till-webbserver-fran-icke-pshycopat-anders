@@ -13,7 +13,12 @@ Skriv lösenord
 
 Skriv lösenord igen <BR><input type="password" name="kontroll-lösen"><BR><BR> <!--skapar en ruta där användaren får skriva in sitt lösenord igen-->
 
-<input type="submit">
+<input type="submit"><BR><BR>
 </form>
+
+<form action ="startsida.php" method="POST">
+Starsida<BR><input type="submit">
+	
+
 </body>
 </html>
