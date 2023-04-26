@@ -2,8 +2,8 @@
 <!--Här kollas konton och om allt stämmer så skapas ett konto här-->
 
 <?php
-$db = new SQLite3('tal.sq3'); #öppnar databasen
-$db->exec("CREATE TABLE IF NOT EXISTS Users(epost text primary key, lösen text, följare text, följer text, 	blockerade text)"); #Skapa tabellen för fråga och svar 
+$db = new SQLite3('user.sq3'); #öppnar databasen
+$db->exec("CREATE TABLE IF NOT EXISTS Users(id integer primary key autoincrement, epost text unique, lösen text, följare text, följer text, 	blockerade text)"); #Skapa tabellen för fråga och svar 
 $allInputQuery = "SELECT * FROM Users"; #välj allt från users
 $userList = $db->query($allInputQuery); #en ny array som innehåller all information
 
@@ -23,8 +23,8 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
 	{
 		echo 'This epost is already registered';?>
 		<html>
-		<form action = "startsida.php" method ="POST">
-		<BR>Startsida <input type="submit">
+		<form action = "skapa-konto.php" method ="POST">
+		<BR>skapa konto <input type="submit">
 		</form>
 		</html>
 		<?php
@@ -54,8 +54,8 @@ if($continue==true)
 					echo 'Your password is wrong, try again';?>
 			
 					<html>
-					<form action = "startsida.php" method ="POST">
-					<BR>Startsida <input type="submit">
+					<form action = "skapa-konto.php" method ="POST">
+					<BR>skapa konto <input type="submit">
 					</form>
 					</html>
 					<?php

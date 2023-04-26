@@ -3,7 +3,7 @@
 
 
 
-$db = new SQLite3('tal.sq3'); #öppnar databas
+$db = new SQLite3('user.sq3'); #öppnar databas
 $allInputQuery = "SELECT * FROM Users"; #välj allt från users
 $userList = $db->query($allInputQuery); #en ny array som innehåller all information
 
