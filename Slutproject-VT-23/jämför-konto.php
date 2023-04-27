@@ -1,8 +1,6 @@
 <!--Slutuppgift-->
 <?php
 
-
-
 $db = new SQLite3('user.sq3'); #öppnar databas
 $allInputQuery = "SELECT * FROM Users"; #välj allt från users
 $userList = $db->query($allInputQuery); #en ny array som innehåller all information
@@ -12,32 +10,59 @@ $tempLösen = $_POST["lösenord"]; #users lösenord
 
 while($row = $userList->fetchArray(SQLITE3_ASSOC))
 {
-	$tempExEpost = $row['epost'];
-	$tempExLösen = $row['lösen'];
+	$tempExEpost = $row['epost']; #sparar alla eposts
+	$tempExLösen = $row['lösen']; #sparar alla lösenord
 	
-	if($tempExEpost == $tempEpost)
+	if($tempExEpost == $tempEpost) #kollar om eposten finns i databasen
 	{
-		if($tempExLösen == $tempLösen)
+		if($tempExLösen == $tempLösen) #kollar om lösenordet finns i databasen
 		{
-		setcookie("user", $tempEpost, time()+(86400*30),'/');
-	 	header("location:chatboard.php"); #fortsätt här, här är fel
+		setcookie("user", $tempEpost, time()+(86400*30),'/'); #cookie loggar in dig i en månad
+	 	header("location:chatboard.php");  #skickar dig till chatboarden 
 		}
 
 	}
+	
 }
 
-?>
-
-<!--skapar en knapp för att gå tillbaka till startsidan
+echo 'Din epost eller lösenord är fel';?>
 <html>
-<body>
-<head><title>Listan i PHP</title></head>
-startsida<form action="startsida.php" method="POST">
-<input type="submit">
+<form action="logga-in.php" >
+testa igen <input type="submit" method="GET">
 </form>
-BABY SHARK
-<form action="lös-uppgift.php" method="POST">
-lös uppgift  --><input type="submit"> 
+</html>
+<html>
+har du ingen konto?
+<form action="skapa-konto.php" >
+Registrera dig <input type="submit" method="GET">
+</form>
+</html>
+<?php
+	
+
+?>
 </form>
 </body>
 </html>
+
+
+
+
+
+
+
+<!--
+<?php
+
+#kod häer
+
+?>
+  	<html>
+		anna kod här
+	</hmlt>
+
+<?php
+#mer kod här
+  ?>
+
+  -->

@@ -4,7 +4,7 @@
 <head><title>Startsida</title></head> <!--knapp tilll Att göra ett konto-->
 
 <?php
-setcookie("user", "Terminator", time()-60,'/'); #loggar ut cookies 
+setcookie("user", "Empty", time()-60,'/'); #loggar ut cookies 
 ?>
 
 <form action="skapa-konto.php" method="POST"> 

@@ -1,4 +1,7 @@
 <!--Slutuppgift-->
+<?php 
+    setcookie("user", "empty", time()-10,'/');
+?>
 <html>
 <body>
 <head><title>Logga in</title></head>

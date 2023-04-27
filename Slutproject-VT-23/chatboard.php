@@ -4,6 +4,10 @@
 <head><title>Chatboard</title></head> <!--knapp tilll Att göra ett konto-->
 <?php
 
+if(!isset ($_COOKIE['user']))
+{
+    header("location:startsida.php"); #fortsätt här, här är fel
+}
 echo 'WELCOME '.$_COOKIE['user'];
 
 ?>
@@ -13,8 +17,7 @@ echo 'WELCOME '.$_COOKIE['user'];
 <br>
 Gör ett inlägg <BR><input type="text" name="inlägg"><BR><BR> <!--skapar en ruta där du kan göra ett inlägg-->
 
-
-<input type="submit"><BR><BR>
+<input type="submit">
 </form>
 
 <br>

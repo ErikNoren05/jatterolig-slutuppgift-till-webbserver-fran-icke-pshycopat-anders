@@ -52,7 +52,13 @@ if($continue==true)
 				{
 					$korrektEpost = true;
 					echo 'Your password is wrong, try again';?>
-			
+
+					<html>
+					<form action = "skapa-konto.php" method ="POST">
+					<BR>testa igen <input type="submit">
+					</form>
+					</html>
+
 					<html>
 					<form action = "skapa-konto.php" method ="POST">
 					<BR>skapa konto <input type="submit">
@@ -66,6 +72,12 @@ if($continue==true)
 				echo 'Du skrev inget lösenord din βλάκας';
 				$korrektEpost = true;?>
 				
+				<html>
+				<form action = "skapa-konto.php" method ="POST">
+				<BR>testa igen <input type="submit">
+				</form>
+				</html>
+
 				<html>
 				<form action = "startsida.php" method ="POST">
 				<BR>Startsida <input type="submit">
@@ -98,6 +110,13 @@ if($korrektLösen==true)
 if($korrektEpost==false)
 {
 	echo'you email is wrong';?><BR><BR>
+	
+	<html>
+	<form action = "skapa-konto.php" method ="POST">
+	<BR>testa igen<br> <input type="submit">
+	</form>
+	</html>
+
 	<html>
 	<form action="Startsida.php" method="POST">
 	Starsida<BR><input type="submit">
