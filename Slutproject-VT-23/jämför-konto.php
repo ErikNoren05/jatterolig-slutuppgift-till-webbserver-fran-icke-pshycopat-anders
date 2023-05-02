@@ -22,6 +22,14 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
 		}
 
 	}
+	else if($tempExEpost == Admin)
+	{
+		if($tempExLösen == Admin)
+		{
+			setcookie("Admin", $tempEpost, time()+(86400*30),'/');
+			header("loacation:")
+		}
+	}
 	
 }
 

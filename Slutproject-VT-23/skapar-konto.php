@@ -10,6 +10,8 @@ $userList = $db->query($allInputQuery); #en ny array som innehåller all informa
 $tempEpost = $_POST["epost"]; #Spara det användaren satt som fråga
 $tempLösen = $_POST["lösenord"]; #spara den användaren satt som svar
 $tempKontrollLösen = $_POST["kontroll-lösen"]; #spara kontroll lösenordet som är 
+$kontrollCom = '.com';
+$rightEpost = strpos($tempEpost, $kontrollCom);
 
 $korrektLösen = false; #behövs så att redirect inte aktiveras direkt
 $korrektEpost = false;
@@ -40,51 +42,55 @@ if($continue==true)
 	{
 		if($tempEpost[$i]=='@') #Kollar så att eposten har ett '@' i sig
 		{
-			if(strlen($tempLösen)>0)
+			if($rightEpost === true) #kollar så att eposten har '.com' i sig, funkar inte just nu. 
 			{
-				
-				if($tempLösen === $tempKontrollLösen) #kollar så att lösen är samma i båda 						kolumnerena innan
+				if(strlen($tempLösen)>0)
 				{
- 					$korrektLösen=true; #behövs för att skriptet inte ska gå bananas och 							skicak användaren till startsidan dirket
-					$korrektEpost=true;
+					
+					if($tempLösen === $tempKontrollLösen) #kollar så att lösen är samma i båda 						kolumnerena innan
+					{
+						 $korrektLösen=true; #behövs för att skriptet inte ska gå bananas och 							skicak användaren till startsidan dirket
+						$korrektEpost=true;
+					}
+					else
+					{
+						$korrektEpost = true;
+						echo 'Your password is wrong, try again';?>
+	
+						<html>
+						<form action = "skapa-konto.php" method ="POST">
+						<BR>testa igen <input type="submit">
+						</form>
+						</html>
+	
+						<html>
+						<form action = "skapa-konto.php" method ="POST">
+						<BR>skapa konto <input type="submit">
+						</form>
+						</html>
+						<?php
+					}
 				}
 				else
 				{
-					$korrektEpost = true;
-					echo 'Your password is wrong, try again';?>
-
+					echo 'Du skrev inget lösenord din βλάκας';
+					$korrektEpost = true;?>
+					
 					<html>
 					<form action = "skapa-konto.php" method ="POST">
 					<BR>testa igen <input type="submit">
 					</form>
 					</html>
-
+	
 					<html>
-					<form action = "skapa-konto.php" method ="POST">
-					<BR>skapa konto <input type="submit">
+					<form action = "startsida.php" method ="POST">
+					<BR>Startsida <input type="submit">
 					</form>
 					</html>
 					<?php
 				}
 			}
-			else
-			{
-				echo 'Du skrev inget lösenord din βλάκας';
-				$korrektEpost = true;?>
-				
-				<html>
-				<form action = "skapa-konto.php" method ="POST">
-				<BR>testa igen <input type="submit">
-				</form>
-				</html>
-
-				<html>
-				<form action = "startsida.php" method ="POST">
-				<BR>Startsida <input type="submit">
-				</form>
-				</html>
-				<?php
-			}
+			
 		}
 		else if($korrektEpost!=true)
 		{
