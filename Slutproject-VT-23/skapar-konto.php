@@ -42,40 +42,23 @@ if($continue==true)
 	{
 		if($tempEpost[$i]=='@') #Kollar så att eposten har ett '@' i sig
 		{
-			if($rightEpost === true) #kollar så att eposten har '.com' i sig, funkar inte just nu. 
+			if($rightEpost === false) #kollar så att eposten har '.com' i sig, funkar inte just nu. 
 			{
-				if(strlen($tempLösen)>0)
-				{
+				echo 'ny rad dålig kod';
+			}
+			else if(strlen($tempLösen)>0)
+			{
 					
-					if($tempLösen === $tempKontrollLösen) #kollar så att lösen är samma i båda 						kolumnerena innan
-					{
-						 $korrektLösen=true; #behövs för att skriptet inte ska gå bananas och 							skicak användaren till startsidan dirket
-						$korrektEpost=true;
-					}
-					else
-					{
-						$korrektEpost = true;
-						echo 'Your password is wrong, try again';?>
-	
-						<html>
-						<form action = "skapa-konto.php" method ="POST">
-						<BR>testa igen <input type="submit">
-						</form>
-						</html>
-	
-						<html>
-						<form action = "skapa-konto.php" method ="POST">
-						<BR>skapa konto <input type="submit">
-						</form>
-						</html>
-						<?php
-					}
+				if($tempLösen === $tempKontrollLösen) #kollar så att lösen är samma i båda 						kolumnerena innan
+				{
+					$korrektLösen=true; #bekräftar att lösenordet är rätt
+					$korrektEpost = true; #bekräftar att eposten är rätt				
 				}
 				else
 				{
-					echo 'Du skrev inget lösenord din βλάκας';
-					$korrektEpost = true;?>
-					
+					$korrektEpost = true;
+					echo 'Your password is wrong, try again';?>
+
 					<html>
 					<form action = "skapa-konto.php" method ="POST">
 					<BR>testa igen <input type="submit">
@@ -83,14 +66,31 @@ if($continue==true)
 					</html>
 	
 					<html>
-					<form action = "startsida.php" method ="POST">
-					<BR>Startsida <input type="submit">
+					<form action = "skapa-konto.php" method ="POST">
+					<BR>skapa konto <input type="submit">
 					</form>
 					</html>
 					<?php
 				}
 			}
-			
+			else
+			{
+				echo 'Du skrev inget lösenord din βλάκας';
+				$korrektEpost = true;?>
+				
+				<html>
+				<form action = "skapa-konto.php" method ="POST">
+				<BR>testa igen <input type="submit">
+				</form>
+				</html>
+	
+				<html>
+				<form action = "startsida.php" method ="POST">
+				<BR>Startsida <input type="submit">
+				</form>
+				</html>
+				<?php
+			}
 		}
 		else if($korrektEpost!=true)
 		{
@@ -101,7 +101,7 @@ if($continue==true)
 }
 
 
-if($korrektLösen==true)
+if($korrektLösen==true && $korrektEpost==true)
 {
 	
 	$db->exec("INSERT INTO Users(epost, lösen) VALUES('".$tempEpost."','".$tempLösen."')"); #lägger in epost 	och lösenord i respektive kolumn
@@ -112,8 +112,7 @@ if($korrektLösen==true)
 	</html>
 	<?php
 }
-
-if($korrektEpost==false)
+else if($korrektEpost==false)
 {
 	echo'you email is wrong';?><BR><BR>
 	

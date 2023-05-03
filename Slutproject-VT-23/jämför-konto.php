@@ -22,15 +22,15 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
 		}
 
 	}
-	else if($tempExEpost == Admin)
+	else if($tempEpost == "Admin") #admins sätt att logga in, skriv användarnamn till 'admin'
 	{
-		if($tempExLösen == Admin)
+		echo "admin?";
+		if($tempLösen == "admin") #admins lösenord är 'admin'
 		{
-			setcookie("Admin", $tempEpost, time()+(86400*30),'/');
-			header("loacation:")
+			setcookie("user", $tempEpost, time()+(86400*30),'/');
+			header("location: adminBoard.php");
 		}
 	}
-	
 }
 
 echo 'Din epost eller lösenord är fel';?>
