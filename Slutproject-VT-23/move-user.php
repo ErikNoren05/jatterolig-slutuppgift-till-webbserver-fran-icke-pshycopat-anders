@@ -1,16 +1,25 @@
-<html>
+
+<!--Funkar inte rad 14 eller nått -->
+<!--<html> -->
 <?php
+$kör = true;
+$tempEpost = $_POST["Epost"];
+$tempLösen = $_POST["password"];
 
-$db = new SQLite3('user.sq3'); #öppnar databas
-$allInputQuery = "SELECT * FROM Users"; #välj allt från users
-$userList = $db->query($allInputQuery); #en ny array som innehåller all information
+echo "epost ".$tempEpost."<BR>";
+echo "lösen $tempLösen";
 
-for($i=1, $i< ) #försök sortera efter id på users
+$db = new SQLite3('Users.sq3');
+$allInputQuery = "SELECT * FROM Users";
 
-$addUsers = $_POST['name'.$i];
-$addUsersPassword = $_POST['password'.$i];
-
-
+$db->exec("INSERT INTO user(epost, lösen) VALUES('".$tempEpost."','".$tempLösen."')"); #lägger in epost 	och lösenord i respektive kolumn
+echo 'Konto skapat';
+if($kör==true)
+{
+	#header("location: adminBoard.php");
+}
 
 ?>
-</hmlt>
+
+?>
+</html>

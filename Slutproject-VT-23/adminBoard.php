@@ -20,23 +20,26 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
 {
 	$tempExEpost = $row['epost']; #sparar alla eposts
 	$tempExLösen = $row['lösen']; #sparar alla lösenord
-	?>
+	echo "<br>".$tempExEpost;
+    echo "<br>";
+    echo $tempExLösen."<br>";
+    $i++;
+    ?>
     <html>
     <form action ="move-user.php" method="POST">
-    <input type="checkbox" name="user".$i value=$tempExEpost method="POST"> <!--gör en checkbox för varje användare som väntar på insläpp-->
-    <input type="hidden" name = "password".$i value =$tempExLösen method="POST">
+    <input type="hidden" name = "Epost".$i value =<?php echo $tempExEpost;?> method="POST">
+    <input type="hidden" name = "password".$i value ="<?php echo $tempExLösen;?>" method="POST">
+    <input type="Submit" value="godkänn" method="POST">
+    </form>
 
    
     <?php
-	echo "<br>".$tempExEpost;
-    echo "<br>";
-    echo $tempExLösen."<br><br>";
-    $i++;
 }
+echo "<BR>";
 ?>
 
 <html>
-<input type="submit" method="POST">
+<!--input type="submit" method="POST"-->
 </form>
 </html>
 
