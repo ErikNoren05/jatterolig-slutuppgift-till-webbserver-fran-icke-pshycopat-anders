@@ -6,7 +6,7 @@
 
 if(!isset ($_COOKIE['user']))
 {
-    header("location:startsida.php"); #fortsätt här, här är fel
+    header("location:startsida.php"); #Skickat tillbaka personer som inte är inloggade
 }
 echo 'WELCOME '.$_COOKIE['user'];
 
@@ -21,7 +21,7 @@ Gör ett inlägg <BR><input type="text" name="inlägg"><BR><BR> <!--skapar en ru
 </form>
 
 <br>
-<br>
+
 
 <form action="startsida.php" method="GET"> 
 Startsida  <input type="submit">
@@ -29,3 +29,26 @@ Startsida  <input type="submit">
 
 </body>
 </html>
+
+<?php
+$db = new SQLite3('inlägg.sq3');
+$allInputQuery = "SELECT * FROM inlägg ORDER BY datum desc, timestamp desc;";
+$allInlägg = $db-> query($allInputQuery);
+
+while($row = $allInlägg->fetchArray(SQLITE3_ASSOC))
+{
+
+    $inlägg = $row['inlägg'];   #sparar inlägget
+    $user = $row['epost'];      #sparar användaren
+    $date = $row['datum'];      #sparar datum
+    $time = $row['timestamp'];  #sparar tiden
+
+    #skriver ut allt som sparats
+    echo $inlägg."<Br>from     ".$user."   <br>date:  ".$date.". At: ". $time;
+    echo '<br><br>';
+    
+
+}
+    
+
+?>

@@ -7,12 +7,19 @@ $userList = $db->query($allInputQuery); #en ny array som innehåller all informa
 
 $tempEpost = $_POST["epost"]; #user epost
 $tempLösen = $_POST["lösenord"]; #users lösenord
+$tempLösen = hash('sha3-512',$tempLösen);
 
 while($row = $userList->fetchArray(SQLITE3_ASSOC))
 {
 	$tempExEpost = $row['epost']; #sparar alla eposts
-	$tempExLösen = $row['lösen']; #sparar alla lösenord
+	$tempExLösen = $row['lösen'];
+	#echo $tempLösen.'<br>';
+	#echo $tempExLösen.'<br>';
+	#echo $tempEpost.'<br>';
+	#echo $tempExEpost.'<br>';
 	
+	
+
 	if($tempExEpost == $tempEpost) #kollar om eposten finns i databasen
 	{
 		if($tempExLösen == $tempLösen) #kollar om lösenordet finns i databasen
@@ -24,8 +31,7 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
 	}
 	else if($tempEpost == "Admin") #admins sätt att logga in, skriv användarnamn till 'admin'
 	{
-		echo "admin?";
-		if($tempLösen == "admin") #admins lösenord är 'admin'
+		if($tempLösen == hash('sha3-512','admin')) #admins lösenord är 'admin'
 		{
 			setcookie("user", $tempEpost, time()+(86400*30),'/');
 			header("location: adminBoard.php");

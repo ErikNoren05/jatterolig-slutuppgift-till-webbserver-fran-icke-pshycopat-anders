@@ -16,19 +16,19 @@ $userList = $db->query($allInputQuery);
 $tempEpost = $_POST["epost"]; #Spara det användaren satt som fråga
 $tempLösen = $_POST["lösenord"]; #spara den användaren satt som svar
 $tempKontrollLösen = $_POST["kontroll-lösen"]; #spara kontroll lösenordet som är 
-$kontrollCom = '.com';
-$rightEpost = strpos($tempEpost, $kontrollCom);
+$kontrollCom = '.com'; 
+$kontrollSe='.se';
+$rightEpost_com = strpos($tempEpost, $kontrollCom);
+$rightEpost_Se = strpos($tempEpost, $kontrollSe);
+
 
 $korrektLösen = false; #behövs så att redirect inte aktiveras direkt
 $korrektEpost = false;
 $continue=true;
 
 while($row = $userList_Waiting->fetchArray(SQLITE3_ASSOC))
-{
+{	
 	$ExistingEpost = $row['epost'];
-	#echo "$tempEpost = ";
-	#echo $row['epost']."<br>";
-	
 	if($ExistingEpost == $tempEpost)
 	{
 		echo 'This epost is already registered';?>
@@ -40,7 +40,17 @@ while($row = $userList_Waiting->fetchArray(SQLITE3_ASSOC))
 		<?php
 		$continue = false;
 		$korrektEpost = true;
-		
+	}
+}
+$tempLösen_HASH = hash('sha3-512',$tempLösen);
+while($row = $userList->fetchArray(SQLITE3_ASSOC))
+{
+	$ExistingLösen = $row['lösen'];
+	$HaveThePassword = $row['epost'];
+	
+	if($tempLösen_HASH == $ExistingLösen)
+	{
+		echo "WARNING:<br>User ".$HaveThePassword.", Wich is accepted by the admin and have account, Have the same password as you<br><br>";
 	}
 }
 
@@ -71,10 +81,10 @@ if($continue==true)
 	{
 		if($tempEpost[$i]=='@') #Kollar så att eposten har ett '@' i sig
 		{
-			if($rightEpost === false) #kollar så att eposten har '.com' i sig, funkar inte just nu. 
+			if($rightEpost_com === false && $rightEpost_Se === false) #kollar så att eposten har '.com' i sig, funkar inte just nu. 
 			{
-				echo 'ny rad dålig kod';
-				header("location:startsida.php");
+				echo 'lösenordet är fel'.'<BR>';
+				#header("location:startsida.php");
 			}
 			else if(strlen($tempLösen)>0)
 			{
@@ -133,7 +143,10 @@ if($continue==true)
 
 if($korrektLösen==true && $korrektEpost==true)
 {
-	$db_Waiting->exec("INSERT INTO Users_Waiting(epost, lösen) VALUES('".$tempEpost."','".$tempLösen."')"); #lägger in epost 	och lösenord i respektive kolumn
+	#$db_Waiting->exec("INSERT INTO Users_Waiting(epost, lösen) VALUES('".'$tempEpost."','".$tempLösen."')"); lägger in epost och lösenord i respektive kolumn
+	$db_Waiting->exec("INSERT INTO users_Waiting(epost, lösen) VALUES('".$tempEpost."','".hash('sha3-512',$tempLösen)."');"); #lägger in epost och lösenord i respektive kolumn
+
+	#'".hash('sha3-512',$tempPassword)."')
 	echo 'Konto skapat';?><BR><BR>
 	<html>
 	<form action="Startsida.php" method="POST">

@@ -25,11 +25,18 @@ while($row = $userList->fetchArray(SQLITE3_ASSOC))
     echo $tempExLösen."<br>";
     $i++;
     ?>
-    <html>
+    <html>Acceptera
     <form action ="move-user.php" method="POST">
     <input type="hidden" name = "Epost".$i value =<?php echo $tempExEpost;?> method="POST">
     <input type="hidden" name = "password".$i value ="<?php echo $tempExLösen;?>" method="POST">
-    <input type="Submit" value="godkänn" method="POST">
+    <input type="Submit" name="knapp" value="godkänd" method="POST">
+    </form>
+    
+    godkänn inte
+    <form action ="move-user.php" method="POST">
+    <input type="hidden" name = "Epost".$i value =<?php echo $tempExEpost;?> method="POST">
+    <input type="hidden" name = "password".$i value ="<?php echo $tempExLösen;?>" method="POST">
+    <input type="Submit" name="knapp" value="inte godkänd" method="POST">
     </form>
 
    
